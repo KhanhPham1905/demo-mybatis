@@ -28,12 +28,12 @@ import com.vti.demo_mybatis.java.example.domain.Person;
 
 import com.vti.demo_mybatis.java.example.util.Calculator;import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-
+import com.vti.demo_mybatis.java.example.*;
 class AssertionsDemo {
 
 	private final Calculator calculator = new Calculator();
 
-	private final Person person = new Person("Jane", "Doe");
+	private final Person person = new Person("Jane1", "Doe");
 
 	@Test
 	void standardAssertions() {
@@ -88,12 +88,12 @@ class AssertionsDemo {
 //	// end::user_guide[]
 //	@extensions.DisabledOnOpenJ9
 //	// tag::user_guide[]
-//	@Test
-//	void exceptionTesting() {
-//		Exception exception = assertThrows(ArithmeticException.class, () ->
-//			calculator.divide(1, 0));
-//		assertEquals("/ by zero", exception.getMessage());
-//	}
+	@Test
+	void exceptionTesting() {
+		Exception exception = assertThrows(ArithmeticException.class, () ->
+			calculator.divide(1, 0));
+		assertEquals("/ by zero", exception.getMessage());
+	}
 
 	// end::user_guide[]
 	@Tag("timeout")
@@ -113,9 +113,9 @@ class AssertionsDemo {
 	void timeoutNotExceededWithResult() {
 		// The following assertion succeeds, and returns the supplied object.
 		String actualResult = assertTimeout(ofMinutes(2), () -> {
-			return "a result";
+			return "a resultz";
 		});
-		assertEquals("a result", actualResult);
+		assertEquals("a result", actualResult, "hi");
 	}
 
 	// end::user_guide[]
@@ -128,33 +128,33 @@ class AssertionsDemo {
 		assertEquals("Hello, World!", actualGreeting);
 	}
 
-//	// end::user_guide[]
-//	@Tag("timeout")
+	// end::user_guide[]
+	@Tag("timeout")
 //	@extensions.ExpectToFail
-//	// tag::user_guide[]
-//	@Test
-//	void timeoutExceeded() {
-//		// The following assertion fails with an error message similar to:
-//		// execution exceeded timeout of 10 ms by 91 ms
-//		assertTimeout(ofMillis(10), () -> {
-//			// Simulate task that takes more than 10 ms.
-//			Thread.sleep(100);
-//		});
-//	}
-//
-//	// end::user_guide[]
-//	@Tag("timeout")
+	// tag::user_guide[]
+	@Test
+	void timeoutExceeded() {
+		// The following assertion fails with an error message similar to:
+		// execution exceeded timeout of 10 ms by 91 ms
+		assertTimeout(ofMillis(10), () -> {
+			// Simulate task that takes more than 10 ms.
+			Thread.sleep(100);
+		});
+	}
+
+	// end::user_guide[]
+	@Tag("timeout")
 //	@extensions.ExpectToFail
-//	// tag::user_guide[]
-//	@Test
-//	void timeoutExceededWithPreemptiveTermination() {
-//		// The following assertion fails with an error message similar to:
-//		// execution timed out after 10 ms
-//		assertTimeoutPreemptively(ofMillis(10), () -> {
-//			// Simulate task that takes more than 10 ms.
-//			new CountDownLatch(1).await();
-//		});
-//	}
+	// tag::user_guide[]
+	@Test
+	void timeoutExceededWithPreemptiveTermination() {
+		// The following assertion fails with an error message similar to:
+		// execution timed out after 10 ms
+		assertTimeoutPreemptively(ofMillis(10), () -> {
+			// Simulate task that takes more than 10 ms.
+			new CountDownLatch(1).await();
+		});
+	}
 
 	private static String greeting() {
 		return "Hello, World!";

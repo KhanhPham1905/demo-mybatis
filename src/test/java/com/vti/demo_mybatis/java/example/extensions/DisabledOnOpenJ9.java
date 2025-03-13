@@ -8,7 +8,7 @@
  * https://www.eclipse.org/legal/epl-v20.html
  */
 
-package com.vti.demo_mybatis.java.extensions;
+package com.vti.demo_mybatis.java.example.extensions;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
